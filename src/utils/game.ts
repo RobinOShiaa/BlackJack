@@ -1,19 +1,20 @@
-import { CardModel,Rank,Color } from "./card.model";
+import { CardModel,Rank } from "./card.model";
 import { Deck } from "./deck.model";
+import { House } from "./house.model";
 import { Player } from "./player.model";
 
-export class Game {
-  constructor(public numOfPlayers : Player []) {
+export class Game extends Deck {
+  constructor(public numOfPlayers : (Player | House) []) {
+    super();
     this.start()
   }
 
   private start() {
-    const deck = new Deck();
-    deck.createDeck();
-    // deck.printAllCards();
-    deck.shuffleDeck();
-    this.numOfPlayers.forEach((player : Player) => {
-      player.hand = deck.getInitialCards();
+    this.createDeck();
+    this.printAllCards();
+    this.shuffleDeck();
+    this.numOfPlayers.forEach((player : Player | House) => {
+      player.hand = this.getInitialCards(player);
       console.log(player.cards);
     })
   }
@@ -26,7 +27,7 @@ export class Game {
             case("Q"): return t + 12;
             case("J"): return t + 11;
             case("A"): aces+=1; return t + 1;
-            default: return t + parseInt(card.rank); 
+            default: return t + parseInt(card.rank!); 
         }
     }, 0);
     if (aces > 0 && total + 10 <= 21) total += 10;

@@ -6,10 +6,6 @@ export class Player extends PlaysGame {
   bank : number = 0;
   canSplit: Boolean = false;
 
-  get cards(): Array<CardModel> {
-    return this.hand
-  }
-
   constructor() {
     super();
   }

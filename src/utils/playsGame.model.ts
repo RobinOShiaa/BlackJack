@@ -5,4 +5,7 @@ export class PlaysGame {
   isBlackJack: Boolean = false;
   points: number = 0;
 
+  get cards(): Array<CardModel> {
+    return this.hand
+  }
 }

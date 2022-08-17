@@ -1,12 +1,10 @@
-import { CardModel, Color, Rank } from "./card.model";
+import { CardModel, Rank, Suit } from "./card.model";
+import { House } from "./house.model";
+import { Player } from "./player.model";
 
 export class Deck {
   private RANKS : string[] =  ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-  private SYMBOLS = [
-    { symbol: "♠", name: "S", colour: "black" },
-    { symbol: "♣", name: "C",  colour: "black" },
-    { symbol: "♥", name: "H", colour: "red" },
-    { symbol: "♦", name: "D", colour: "red" }];
+  private SUITS = ["S","C","H","D"]
   _deck : CardModel [] = []; 
   constructor() {
   }
@@ -17,10 +15,9 @@ export class Deck {
   createDeck() {
     this.RANKS.forEach((r) => {
       const rank = r as Rank;
-      this.SYMBOLS.forEach(sym => {
-        const {symbol,name,colour} = sym;  
-        const color = colour as Color;    
-        this._deck.push(new CardModel(rank,symbol,name,color));
+      this.SUITS.forEach(sym => {
+        const suit = sym as Suit;    
+        this._deck.push(new CardModel(rank,suit));
       })
     })
   }
@@ -35,11 +32,19 @@ export class Deck {
     this._deck = shuffled;
   }
 
-  public getInitialCards = (): [CardModel, CardModel] => [
-    this._deck.pop()!,
-    this._deck.pop()!
-  ];
+  public getInitialCards = (player : Player | House): [CardModel, CardModel] => {
+    const firstCard =  this._deck.pop()!;
+    if(player instanceof House) {
+      const secondCard : CardModel = this._deck.pop()!;
+      secondCard.hidden = true;
+      return [firstCard, secondCard];
+    } else {
+      return [firstCard, this._deck.pop()!];
+    }
 
+  }
+
+  
   public dealCard = (): CardModel => this._deck.pop()!;
-
+  
 }

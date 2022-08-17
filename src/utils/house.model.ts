@@ -3,15 +3,22 @@ import { PlaysGame } from "./playsGame.model";
 
 
 export class House extends PlaysGame {
-  showSecond: Boolean =  false;
-  deck : CardModel [] = []; 
-
-  set showTheSecond(value : Boolean) {
-    this.showSecond = value;
-  }
   constructor () {
     super()
   }
+
+  
+
+  revealCard = () => {
+    this.hand.filter((card: CardModel) => {
+      if (card.hidden === true) {
+        card.hidden = false;
+      }
+      return card;
+    });
+    // setDealerCards([...dealerCards])
+  }
+
 
   
     
