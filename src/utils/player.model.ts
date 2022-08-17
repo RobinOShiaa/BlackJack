@@ -1,4 +1,4 @@
-import { Card } from "./card.model";
+import { CardModel } from "./card.model";
 import { Deck } from "./deck.model";
 import { PlaysGame } from "./playsGame.model";
 
@@ -6,7 +6,7 @@ export class Player extends PlaysGame {
   bank : number = 0;
   canSplit: Boolean = false;
 
-  get cards(): Array<Card> {
+  get cards(): Array<CardModel> {
     return this.hand
   }
 

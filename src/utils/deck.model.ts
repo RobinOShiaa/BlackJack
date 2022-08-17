@@ -1,13 +1,13 @@
-import { Card, Color, Rank } from "./card.model";
+import { CardModel, Color, Rank } from "./card.model";
 
 export class Deck {
   private RANKS : string[] =  ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
   private SYMBOLS = [
-    { symbol: "♠", name: "spade", colour: "black" },
-    { symbol: "♣", name: "club",  colour: "black" },
-    { symbol: "♥", name: "heart", colour: "red" },
-    { symbol: "♦", name: "diamond", colour: "red" }];
-  _deck : Card [] = []; 
+    { symbol: "♠", name: "S", colour: "black" },
+    { symbol: "♣", name: "C",  colour: "black" },
+    { symbol: "♥", name: "H", colour: "red" },
+    { symbol: "♦", name: "D", colour: "red" }];
+  _deck : CardModel [] = []; 
   constructor() {
   }
   printAllCards () {
@@ -20,7 +20,7 @@ export class Deck {
       this.SYMBOLS.forEach(sym => {
         const {symbol,name,colour} = sym;  
         const color = colour as Color;    
-        this._deck.push(new Card(rank,symbol,name,color));
+        this._deck.push(new CardModel(rank,symbol,name,color));
       })
     })
   }
@@ -35,11 +35,11 @@ export class Deck {
     this._deck = shuffled;
   }
 
-  public getInitialCards = (): [Card, Card] => [
+  public getInitialCards = (): [CardModel, CardModel] => [
     this._deck.pop()!,
     this._deck.pop()!
   ];
 
-  public dealCard = (): Card => this._deck.pop()!;
+  public dealCard = (): CardModel => this._deck.pop()!;
 
 }

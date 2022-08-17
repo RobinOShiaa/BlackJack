@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Card : React.FC = () => {
+export const Card : React.FC = (props) => {
   return (
-    <div className="card-container">
-      <div className="card">
-      </div>
-    </div>
+  <div className="card">
+      <img src= "./cards/J-C.png" alt=""/>
+  </div>
   );
 }

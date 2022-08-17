@@ -1,4 +1,4 @@
-import { Card,Rank,Color } from "./card.model";
+import { CardModel,Rank,Color } from "./card.model";
 import { Deck } from "./deck.model";
 import { Player } from "./player.model";
 
@@ -18,7 +18,7 @@ export class Game {
     })
   }
 
-  calculateScore = (cards : Card[]) => {
+  calculateScore = (cards : CardModel[]) => {
     let aces = 0;
     let total = cards.reduce((t, card) => {
         switch(card.rank) {
@@ -33,7 +33,7 @@ export class Game {
     return total;
   }
 
-  isBlackJack = (cards : Card[]) => {
+  isBlackJack = (cards : CardModel[]) => {
     // edge case for non-initial move
     if (cards.length === 2) {
         const ranks = cards.map(card => card.rank);
