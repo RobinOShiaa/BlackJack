@@ -8,9 +8,9 @@ export class Card {
   }
   constructor 
   (
-    public rank : Rank,
-    public suit : string,
-    public name : string, 
-    public colour : Color
+    public readonly rank : Rank,
+    public readonly suit : string,
+    public readonly name : string, 
+    public readonly colour : Color
   ){}
 }

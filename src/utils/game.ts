@@ -1,57 +1,47 @@
 import { Card,Rank,Color } from "./card.model";
+import { Deck } from "./deck.model";
+import { Player } from "./player.model";
 
 export class Game {
-
-  private RANKS : string[] =  ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-  private SYMBOLS = [
-    { symbol: "♠", name: "spade", colour: "black" },
-    { symbol: "♣", name: "club",  colour: "black" },
-    { symbol: "♥", name: "heart", colour: "red" },
-    { symbol: "♦", name: "diamond", colour: "red" }];
-  deck : Card [] = []; 
-  inPlay : Boolean = false
-  startBet : Boolean = true;
-  pool : number = 0;
-  tie : Boolean = false;
-  houseWins : Boolean = false;
-  playerWins : Boolean = false;
-  houseBust : Boolean = false;
-  playerBust : Boolean = false;
-  blackJack : Boolean = false;
-
-  constructor() {
+  constructor(public numOfPlayers : Player []) {
     this.start()
   }
 
-  private printAllCards () {
-    this.deck.forEach((card => console.log(card.aCard)));
-  }
-  
   private start() {
-    this.createDeck();
-    this.printAllCards();
-    this.shuffleDeck();
-  }
-
-  private createDeck() {
-    this.RANKS.forEach((r) => {
-      const rank = r as Rank;
-      this.SYMBOLS.forEach(sym => {
-        const {symbol,name,colour} = sym;  
-        const color = colour as Color;    
-        this.deck.push(new Card(rank,symbol,name,color));
-      })
+    const deck = new Deck();
+    deck.createDeck();
+    // deck.printAllCards();
+    deck.shuffleDeck();
+    this.numOfPlayers.forEach((player : Player) => {
+      player.hand = deck.getInitialCards();
+      console.log(player.cards);
     })
   }
 
-  private shuffleDeck = () => {
-    let i = this.deck.length;
-    let shuffled = Object.assign([], this.deck);
-    while (--i > 0) {
-      let rInd = Math.floor(Math.random() * (i + 1));
-      [shuffled[rInd], shuffled[i]] = [shuffled[i], shuffled[rInd]];
+  calculateScore = (cards : Card[]) => {
+    let aces = 0;
+    let total = cards.reduce((t, card) => {
+        switch(card.rank) {
+            case("K"): return t + 13;
+            case("Q"): return t + 12;
+            case("J"): return t + 11;
+            case("A"): aces+=1; return t + 1;
+            default: return t + parseInt(card.rank); 
+        }
+    }, 0);
+    if (aces > 0 && total + 10 <= 21) total += 10;
+    return total;
+  }
+
+  isBlackJack = (cards : Card[]) => {
+    // edge case for non-initial move
+    if (cards.length === 2) {
+        const ranks = cards.map(card => card.rank);
+        return ranks.includes("A") && ranks.filter(val => ["Q", "K"].includes(val)).length > 0
     }
-    this.deck = shuffled;
-  
-}
-}
+    return false;
+  }
+
+  isBust = (score : number) => score > 21;
+
+} 
