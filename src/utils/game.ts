@@ -1,4 +1,4 @@
-import { CardModel,Rank } from "./card.model";
+import { CardModel } from "./card.model";
 import { Deck } from "./deck.model";
 import { House } from "./house.model";
 import { Player } from "./player.model";
@@ -8,7 +8,6 @@ export class Game extends Deck {
     super();
     this.start()
   }
-
   private start() {
     this.createDeck();
     this.printAllCards();
@@ -18,7 +17,6 @@ export class Game extends Deck {
       console.log(player.cards);
     })
   }
-
   calculateScore = (cards : CardModel[]) => {
     let aces = 0;
     let total = cards.reduce((t, card) => {
@@ -33,7 +31,6 @@ export class Game extends Deck {
     if (aces > 0 && total + 10 <= 21) total += 10;
     return total;
   }
-
   isBlackJack = (cards : CardModel[]) => {
     // edge case for non-initial move
     if (cards.length === 2) {
@@ -42,7 +39,5 @@ export class Game extends Deck {
     }
     return false;
   }
-
   isBust = (score : number) => score > 21;
-
 } 

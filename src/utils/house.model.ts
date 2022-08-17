@@ -5,10 +5,7 @@ import { PlaysGame } from "./playsGame.model";
 export class House extends PlaysGame {
   constructor () {
     super()
-  }
-
-  
-
+  } 
   revealCard = () => {
     this.hand.filter((card: CardModel) => {
       if (card.hidden === true) {
@@ -17,9 +14,5 @@ export class House extends PlaysGame {
       return card;
     });
     // setDealerCards([...dealerCards])
-  }
-
-
-  
-    
+  }  
 } 

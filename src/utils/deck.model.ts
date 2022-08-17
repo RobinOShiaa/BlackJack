@@ -32,7 +32,7 @@ export class Deck {
     this._deck = shuffled;
   }
 
-  public getInitialCards = (player : Player | House): [CardModel, CardModel] => {
+  getInitialCards = (player : Player | House): [CardModel, CardModel] => {
     const firstCard =  this._deck.pop()!;
     if(player instanceof House) {
       const secondCard : CardModel = this._deck.pop()!;
@@ -45,6 +45,6 @@ export class Deck {
   }
 
   
-  public dealCard = (): CardModel => this._deck.pop()!;
+  dealCard = (): CardModel => this._deck.pop()!;
   
 }

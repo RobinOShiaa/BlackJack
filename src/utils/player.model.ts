@@ -9,8 +9,6 @@ export class Player extends PlaysGame {
   constructor() {
     super();
   }
-
-
   makeBet (bet : number) {
     if((this.bank - bet) < 0) {
       console.log('ff');
