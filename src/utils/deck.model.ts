@@ -8,9 +8,9 @@ export class Deck {
   _deck : CardModel [] = []; 
   constructor() {
   }
-  printAllCards () {
-    this._deck.forEach((card => console.log(card.aCard)));
-  }
+  // printAllCards () {
+  //   this._deck.forEach((card => console.log(card.aCard)));
+  // }
 
   createDeck() {
     this.RANKS.forEach((r) => {
@@ -32,19 +32,9 @@ export class Deck {
     this._deck = shuffled;
   }
 
-  getInitialCards = (player : Player | House): [CardModel, CardModel] => {
-    const firstCard =  this._deck.pop()!;
-    if(player instanceof House) {
-      const secondCard : CardModel = this._deck.pop()!;
-      secondCard.hidden = true;
-      return [firstCard, secondCard];
-    } else {
-      return [firstCard, this._deck.pop()!];
-    }
 
-  }
 
   
-  dealCard = (): CardModel => this._deck.pop()!;
+  dealDeckCard = (): CardModel => this._deck.pop()!;
   
 }

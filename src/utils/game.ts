@@ -8,22 +8,20 @@ export class Game extends Deck {
     super();
     this.start()
   }
-  private start() {
+  start() {
     this.createDeck();
-    this.printAllCards();
+    // this.printAllCards();
     this.shuffleDeck();
-    this.numOfPlayers.forEach((player : Player | House) => {
-      player.hand = this.getInitialCards(player);
-      console.log(player.cards);
-    })
+    
   }
+  
   calculateScore = (cards : CardModel[]) => {
     let aces = 0;
     let total = cards.reduce((t, card) => {
         switch(card.rank) {
-            case("K"): return t + 13;
-            case("Q"): return t + 12;
-            case("J"): return t + 11;
+            case("K"): return t + 10;
+            case("Q"): return t + 10;
+            case("J"): return t + 10;
             case("A"): aces+=1; return t + 1;
             default: return t + parseInt(card.rank!); 
         }

@@ -5,13 +5,13 @@ export type Rank =  "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "J" |
 export class CardModel {
   
   get aCard() {
-    return `${this.rank},${this.suit}`
+    return `${this.rank}-${this.suit}`
   }
   constructor 
   (
     public readonly rank : Rank,
     public readonly suit : Suit,
-    public hidden?: Boolean,
+    public hidden: Boolean = false,
     
   ){}
 
